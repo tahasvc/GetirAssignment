@@ -1,21 +1,22 @@
 const recordModel = require('./RecordModel')
-const msg = require('../Constants/constants')
-const AssignmentHelper = require('../Extensions/AssignmentHelper')
+const msg = require('../constants/constants')
 function ResponseModel() {
     this.code
     this.msg = ""
     this.records = []
 }
 ResponseModel.prototype.fill = function (newFields) {
-    if (newFields.length > 1) {
+    if (newFields.length >= 1) {
         this.code = msg.success
-        this.msg = AssignmentHelper.getObjectKey(msg,msg.success)
+        this.msg = "success"
         newFields.forEach(element => {
-         this.records.push(new recordModel(element.key,element.createdAt,element.totalCount)) 
+            this.records.push(new recordModel(element.key, element.createdAt, element.totalCount))
         });
+    } else if (newFields.length == 0) {
+        this.code = msg.noData
+        this.msg = "no data"
     }
 
 }
-module.exports = ResponseModel
 
-ResponseModel.inheritance = new ResponseModel()
+module.exports = ResponseModel

@@ -1,4 +1,4 @@
-const responseModel = require('./Models/ResponseModel');
+const responseModel = require('./models/ResponseModel');
 const ErrorLogger = require('./errorlogger');
 class DbManager {
   filterData(model, callback) {
@@ -7,14 +7,18 @@ class DbManager {
 
     MongoClient.connect(URL, function (err, db) {
       if (err) throw err;
-      var dbo = db.db("getir-case-stud");
-      dbo.collection("examples").find({createdAt:{
-        $gte:new Date(model.startDate),
-        $lte:new Date(model.endDate)
-      },totalCount:{$gte:model.minCount,$lte:model.maxCount}}).toArray(function (err, result) {
+      var dbo = db.db("getir-case-study");
+      dbo.collection("examples").find({
+        $and: [{
+          createdAt: {
+            $gte: new Date(model.startDate),
+            $lte: new Date(model.endDate)
+          }, totalCount: { $gte: model.minCount, $lte: model.maxCount }
+        }]
+      }).toArray(function (err, result) {
         if (err) callback(new ErrorLogger(err.errmsg));
         db.close();
-        const respModel = responseModel.inheritance
+        const respModel = new responseModel()
         respModel.fill(result)
         return callback(respModel)
       });

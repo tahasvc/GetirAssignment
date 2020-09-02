@@ -1,5 +1,5 @@
-const responseModel = require('./Models/ResponseModel').inheritance
-const msg = require('./Constants/constants')
+const responseModel = require('./models/ResponseModel').inheritance
+const msg = require('./constants/constants')
 class ErrorLogger extends Error {
     constructor(args) {
         super(args)
