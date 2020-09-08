@@ -1,5 +1,5 @@
 const recordModel = require('./RecordModel')
-const msg = require('../constants/constants')
+const msg = require('../Constants/constants')
 function ResponseModel() {
     this.code
     this.msg = ""
