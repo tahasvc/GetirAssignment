@@ -18,6 +18,6 @@ app.post('/', function (req, res) {
     }
 })
 
-app.listen(port)
+app.listen(process.env.PORT)
 
 module.exports = app
