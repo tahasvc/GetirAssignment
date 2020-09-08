@@ -5,7 +5,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 const dbmanager = require('./dbmanager').DbManager
 const errorLogger = require('./errorlogger')
-const port = 8080
+const port = 80
 let db = new dbmanager()
 app.post('/', function (req, res) {
     try {
