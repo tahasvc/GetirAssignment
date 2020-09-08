@@ -1,5 +1,8 @@
 {
+    "name": "getirassignment",
+    "main": "app.js",
     "scripts": {
         "test": "mocha"
-    }
+    },
+    "license": "ISC"
 }
