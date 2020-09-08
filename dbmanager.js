@@ -8,18 +8,19 @@ class DbManager {
     MongoClient.connect(URL, function (err, db) {
       if (err) throw err;
       var dbo = db.db("getir-case-study");
-      dbo.collection("examples").find({
-        $and: [{
-          createdAt: {
-            $gte: new Date(model.startDate),
-            $lte: new Date(model.endDate)
-          }, totalCount: { $gte: model.minCount, $lte: model.maxCount }
-        }]
-      }).toArray(function (err, result) {
+      dbo.collection("records").find().toArray(function (err, result) {
         if (err) callback(new ErrorLogger(err.errmsg));
         db.close();
+        var resultData=[];
         const respModel = new responseModel()
-        respModel.fill(result)
+        result.forEach(function(element,index){
+          const sum = element.counts.reduce(function(a,b){return a+b;},0)
+          if((model.minCount<=sum && model.maxCount>=sum) && (new Date(model.startDate) <= element.createdAt && new Date(model.endDate) >= element.createdAt)){
+            result[index].totalCount = sum
+            resultData.push(result[index])
+          }
+        });
+        respModel.fill(resultData)
         return callback(respModel)
       });
     });
