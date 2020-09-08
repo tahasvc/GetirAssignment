@@ -1,5 +1,5 @@
-const responseModel = require('../models/ResponseModel');
-const ErrorLogger = require('../errorlogger');
+const responseModel = require('./Models/ResponseModel');
+const ErrorLogger = require('./errorlogger');
 class DbManager {
   filterData(model, callback) {
     const MongoClient = require('mongodb').MongoClient;
