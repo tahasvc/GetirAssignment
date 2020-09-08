@@ -1,9 +1,12 @@
 {
     "name": "getirassignment",
+    "version": "1.0.0",
+    "description": "Node js",
     "main": "app.js",
     "scripts": {
-        "start": "app.js",
+        "start": "node app.js",
         "test": "mocha"
     },
+    "author": "tahasvc",
     "license": "ISC"
 }
